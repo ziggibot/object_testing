@@ -3,6 +3,8 @@
 const displayField = document.getElementById("displayfield");
 const buttonAddBook = document.getElementById("buttonaddbook");
 
+let myLibrary = [];
+
 function Book(title, author, pages, read) {
     this.title = title
     this.author = author
@@ -13,30 +15,50 @@ function Book(title, author, pages, read) {
     }
 }
 
-const sunsetPark = new Book('Sunset Park', 'Paul Auster', '295', 'already read');
-const stiller = new Book('Stiller', 'Max Frisch', '105', 'not read yet');
-const derEkel = new Book('Der Ekel', 'Jean-Paul Sartre', '205', 'not read yet');
-
-
-
-let myLibrary = [];
-
-buttonAddBook.addEventListener('click', function() {
+buttonAddBook.addEventListener('click', function () {
     while (displayField.firstChild) {
         displayField.removeChild(displayField.firstChild);
     }
+
     let newBookTitle = document.getElementById("newbooktitle").value;
     let newBookAuthor = document.getElementById("newauthorname").value;
     let newBookpages = document.getElementById("newpagenumber").value;
     let newBookread = document.getElementById("newreadit").value;
+
     const bookToAdd = new Book(newBookTitle, newBookAuthor, newBookpages, newBookread);
+
     myLibrary.push(bookToAdd);
+
     myLibrary.forEach(function (element) {
         let nextBook = document.createElement("div");
-        nextBook.innerHTML = (element.title + ", " + element.author + ", " + element.pages + " pages, " + element.read)
+        nextBook.setAttribute("data-booknumber", myLibrary.indexOf(element));
+        nextBook.innerHTML = (
+            element.title
+            + ", "
+            + element.author
+            + ", "
+            + element.pages
+            + " pages, "
+            + element.read
+            + '<button class="button_remove">Remove</button>'
+        )
+
         displayField.appendChild(nextBook);
+
+        const buttonRemove = document.querySelectorAll(".button_remove");
+
+        buttonRemove.forEach(function (button) {
+            button.onclick = function () {
+                let thisBook = this.parentNode;
+                thisBook.remove();
+                let bookPosition = thisBook.dataset.booknumber;
+                myLibrary.splice(bookPosition, 1);
+            }
+        })
     })
 });
+
+
 
 
 
