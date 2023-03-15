@@ -1,5 +1,5 @@
 
-
+const inputForm = document.getElementById("newbookform");
 const displayField = document.getElementById("displayfield");
 const buttonAddBook = document.getElementById("buttonaddbook");
 
@@ -14,6 +14,12 @@ function Book(title, author, pages, read) {
         return (title + " by " + author + ", " + pages + " pages , " + read)
     }
 }
+
+const bookFormButton = document.getElementById("buttonopenform");
+
+bookFormButton.addEventListener('click', function () {
+            inputForm.style.display = "block";
+})
 
 buttonAddBook.addEventListener('click', function () {
     while (displayField.firstChild) {
@@ -56,6 +62,11 @@ buttonAddBook.addEventListener('click', function () {
             }
         })
     })
+    document.getElementById("newbooktitle").value = "";
+    document.getElementById("newauthorname").value = "";
+    document.getElementById("newpagenumber").value = "";
+    document.getElementById("newreadit").value = "";
+    inputForm.style.display = "none";
 });
 
 

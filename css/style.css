@@ -1,3 +1,7 @@
+.newbook_form {
+    display: none;
+}
+
 .newbook_section {
     background-color: beige;
 }
